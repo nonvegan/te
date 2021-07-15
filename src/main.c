@@ -27,6 +27,7 @@
 #include "./tile_glyph.h"
 #include "./free_glyph.h"
 #include "./cursor_renderer.h"
+#include "./mouse.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -75,7 +76,7 @@ void gl_render_cursor(Tile_Glyph_Buffer *tgb)
     tile_glyph_render_line_sized(tgb, c ? c : " ", 1, tile, vec4fs(0.0f), vec4fs(1.0f));
 }
 
-// #define TILE_GLYPH_RENDER
+//#define TILE_GLYPH_RENDER
 
 #ifdef TILE_GLYPH_RENDER
 static Tile_Glyph_Buffer tgb = {0};
@@ -130,6 +131,8 @@ void render_editor_into_tgb(SDL_Window *window, Tile_Glyph_Buffer *tgb, Editor *
 
 #define FREE_GLYPH_FONT_SIZE 64
 
+// TODO(#27): Free_Glyph renderer does not support cursor
+// TODO(#28): Camera location is broken in Free_Glyph Renderer
 
 void render_editor_into_fgb(SDL_Window *window, Free_Glyph_Buffer *fgb, Cursor_Renderer *cr, Editor *editor)
 {
@@ -390,6 +393,25 @@ int main(int argc, char **argv)
                 cursor_renderer_use(&cr);
                 glUniform1f(cr.last_stroke_uniform, (float) SDL_GetTicks() / 1000.0f);
 #endif
+            }
+            break;
+
+            case SDL_MOUSEBUTTONDOWN: {
+                const Vec2f mouse_pos = vec2f((float) event.button.x, (float) event.button.y);
+                switch(event.button.button) {
+                case SDL_BUTTON_LEFT: {
+#ifndef TILE_GLYPH_RENDER
+                    mouse_click_move_cursor_fgr(mouse_pos, window_size(window), camera_pos, 
+                                               &editor, &fgb, FREE_GLYPH_FONT_SIZE);
+                                               
+                    cursor_renderer_use(&cr);
+                    glUniform1f(cr.last_stroke_uniform, (float) SDL_GetTicks() / 1000.0f);
+#else 
+                    mouse_click_move_cursor_tgr(mouse_pos, window_size(window), camera_pos, &editor);
+#endif
+                }
+                break;
+                }
             }
             break;
             }
