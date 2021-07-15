@@ -414,17 +414,20 @@ int main(int argc, char **argv)
                 }
             }
             break;
+
+            case SDL_WINDOWEVENT: {
+                switch(event.window.event) {
+                case SDL_WINDOWEVENT_RESIZED: {
+                    const Vec2f win_size = window_size(window);
+                    glViewport(0, 0, win_size.x, win_size.y);
+                }
+                break;
+                }
+            }
+            break;
             }
         }
 
-        {
-            int w, h;
-            SDL_GetWindowSize(window, &w, &h);
-            // TODO(#19): update the viewport and the resolution only on actual window change
-            glViewport(0, 0, w, h);
-        }
-
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
 #ifdef TILE_GLYPH_RENDER
