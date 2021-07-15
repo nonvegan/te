@@ -76,7 +76,7 @@ void gl_render_cursor(Tile_Glyph_Buffer *tgb)
     tile_glyph_render_line_sized(tgb, c ? c : " ", 1, tile, vec4fs(0.0f), vec4fs(1.0f));
 }
 
-//#define TILE_GLYPH_RENDER
+// #define TILE_GLYPH_RENDER
 
 #ifdef TILE_GLYPH_RENDER
 static Tile_Glyph_Buffer tgb = {0};
@@ -425,6 +425,7 @@ int main(int argc, char **argv)
             }
         }
 
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
 #ifdef TILE_GLYPH_RENDER
