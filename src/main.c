@@ -36,7 +36,7 @@
 
 Editor editor = {0};
 Vec2f camera_pos = {0};
-float camera_scale = 1.0f;
+float camera_scale = 3.0f;
 float camera_scale_vel = 0.0f;
 Vec2f camera_vel = {0};
 

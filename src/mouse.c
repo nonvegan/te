@@ -9,8 +9,6 @@ void mouse_click_move_cursor(Vec2f mouse_pos, Vec2f window_size, Vec2f camera_po
         vec2f_add(mouse_pos, vec2f_sub(vec2f_mul(vec2f(camera_pos.x, -camera_pos.y + (float) font_size), vec2fs(camera_scale)), 
                                        vec2f_mul(window_size, vec2fs(0.5f))));
 
-    printf("camera scale -> %f\n", camera_scale);
-    printf("click_pos -> (%f, %f)\n", click_pos.x, click_pos.y);
     if(click_pos.x > 0.0f && click_pos.y > 0.0f) {
         editor->cursor_row = (size_t) floorf(click_pos.y / ((float) font_size * camera_scale));
 
