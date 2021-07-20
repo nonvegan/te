@@ -76,7 +76,7 @@ void gl_render_cursor(Tile_Glyph_Buffer *tgb)
     tile_glyph_render_line_sized(tgb, c ? c : " ", 1, tile, vec4fs(0.0f), vec4fs(1.0f));
 }
 
-// #define TILE_GLYPH_RENDER
+///#define TILE_GLYPH_RENDER
 
 #ifdef TILE_GLYPH_RENDER
 static Tile_Glyph_Buffer tgb = {0};
@@ -129,7 +129,7 @@ void render_editor_into_tgb(SDL_Window *window, Tile_Glyph_Buffer *tgb, Editor *
     tile_glyph_buffer_draw(tgb);
 }
 
-#define FREE_GLYPH_FONT_SIZE 64
+#define FREE_GLYPH_FONT_SIZE 40
 
 void render_editor_into_fgb(SDL_Window *window, Free_Glyph_Buffer *fgb, Cursor_Renderer *cr, Editor *editor)
 {
@@ -198,7 +198,7 @@ int main(int argc, char **argv)
         exit(1);
     }
 
-    const char *const font_file_path = "./VictorMono-Regular.ttf";
+    const char *const font_file_path = "./Roboto-Regular.ttf"; // "./VictorMono-Regular.ttf";
 
     FT_Face face;
     error = FT_New_Face(library, font_file_path, 0, &face);

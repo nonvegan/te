@@ -39,8 +39,10 @@ void mouse_click_move_cursor_fgr(Vec2f mouse_pos, Vec2f window_size, Vec2f camer
                     editor->cursor_col = i;
                     break;
                 } 
-                if(i + 1 == line->size) {
+
+                if(i == line->size - 1) {
                     editor->cursor_col = line->size;
+                    break;
                 }
 
                 sum_ax_line += ax_char;
